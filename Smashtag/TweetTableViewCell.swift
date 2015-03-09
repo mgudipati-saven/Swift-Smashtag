@@ -12,6 +12,7 @@ class TweetTableViewCell: UITableViewCell
 {
     var tweet: Tweet? {
         didSet {
+            println("\(tweet)")
             updateUI()
         }
     }
@@ -30,9 +31,26 @@ class TweetTableViewCell: UITableViewCell
         if let tweet = self.tweet {
             tweetTextLabel?.text = tweet.text
             if tweetTextLabel?.text != nil {
-                for _ in tweet.media {
-                    tweetTextLabel.text! += " "
+                // prepare attributed string for the text label's attributed text
+                let attributes = [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+                var attributedString = NSMutableAttributedString(string: tweet.text, attributes: attributes)
+                
+                // add attributes to hashtags
+                for hashtag in tweet.hashtags {
+                    attributedString.addAttribute(NSForegroundColorAttributeName, value: HashtagColor, range: hashtag.nsrange)
                 }
+
+                // add attributes to urls
+                for url in tweet.urls {
+                    attributedString.addAttribute(NSForegroundColorAttributeName, value: URLColor, range: url.nsrange)
+                }
+
+                // add attributes to user mentions
+                for user in tweet.userMentions {
+                    attributedString.addAttribute(NSForegroundColorAttributeName, value: UserMentionColor, range: user.nsrange)
+                }
+                
+                tweetTextLabel.attributedText = attributedString
             }
             
             tweetScreenNameLabel?.text = "\(tweet.user)"
@@ -44,4 +62,9 @@ class TweetTableViewCell: UITableViewCell
             }
         }
     }
+    
+    // Constants
+    let UserMentionColor = UIColor.purpleColor()
+    let HashtagColor = UIColor.brownColor()
+    let URLColor = UIColor.blueColor()
 }
