@@ -18,6 +18,7 @@
 		3301218F1AABEC3400F7F396 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3301218B1AABEC3400F7F396 /* User.swift */; };
 		330121911AABED6C00F7F396 /* TweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330121901AABED6C00F7F396 /* TweetTableViewController.swift */; };
 		330CB2621AAC1B6D002DA95B /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330CB2611AAC1B6D002DA95B /* TweetTableViewCell.swift */; };
+		339B8AC01AAEAB2B00AAC7F3 /* MentionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339B8ABF1AAEAB2B00AAC7F3 /* MentionsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		3301218B1AABEC3400F7F396 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		330121901AABED6C00F7F396 /* TweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewController.swift; sourceTree = "<group>"; };
 		330CB2611AAC1B6D002DA95B /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
+		339B8ABF1AAEAB2B00AAC7F3 /* MentionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				330121901AABED6C00F7F396 /* TweetTableViewController.swift */,
 				330121871AABEC3400F7F396 /* Twitter */,
 				3301216B1AABEB8D00F7F396 /* Main.storyboard */,
+				339B8ABF1AAEAB2B00AAC7F3 /* MentionsTableViewController.swift */,
 				330CB2611AAC1B6D002DA95B /* TweetTableViewCell.swift */,
 				330121651AABEB8D00F7F396 /* Supporting Files */,
 			);
@@ -235,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				339B8AC01AAEAB2B00AAC7F3 /* MentionsTableViewController.swift in Sources */,
 				3301218D1AABEC3400F7F396 /* Tweet.swift in Sources */,
 				330121681AABEB8D00F7F396 /* AppDelegate.swift in Sources */,
 				3301218C1AABEC3400F7F396 /* MediaItem.swift in Sources */,

@@ -12,7 +12,7 @@ class TweetTableViewCell: UITableViewCell
 {
     var tweet: Tweet? {
         didSet {
-            println("\(tweet)")
+            //println("\(tweet)")
             updateUI()
         }
     }
