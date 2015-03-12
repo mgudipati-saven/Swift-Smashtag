@@ -13,19 +13,30 @@ class MentionsTableViewController: UITableViewController
     // data model
     var tweet: Tweet? {
         didSet {
-            println("\(tweet)")
+            //println("\(tweet)")
 
-            if tweet?.media.count > 0 {
-                mentions.append(Mention.Image)
+            if let media = tweet?.media {
+                if media.count > 0 {
+                    mentions.append(Mention.Image(media))
+                }
             }
-            if tweet?.hashtags.count > 0 {
-                mentions.append(Mention.Hashtag)
+            
+            if let hashtags = tweet?.hashtags {
+                if hashtags.count > 0 {
+                    mentions.append(Mention.Hashtag(hashtags))
+                }
             }
-            if tweet?.urls.count > 0 {
-                mentions.append(Mention.URL)
+
+            if let urls = tweet?.urls {
+                if urls.count > 0 {
+                    mentions.append(Mention.URL(urls))
+                }
             }
-            if tweet?.userMentions.count > 0 {
-                mentions.append(Mention.User)
+            
+            if let userMentions = tweet?.userMentions {
+                if userMentions.count > 0 {
+                    mentions.append(Mention.User(userMentions))
+                }
             }
 
             tableView.reloadData()
@@ -33,7 +44,10 @@ class MentionsTableViewController: UITableViewController
     }
     
     private enum Mention {
-        case Image, Hashtag, URL, User
+        case Image([MediaItem])
+        case Hashtag([Tweet.IndexedKeyword])
+        case URL([Tweet.IndexedKeyword])
+        case User([Tweet.IndexedKeyword])
         
         var title: String {
             switch self {
@@ -48,29 +62,29 @@ class MentionsTableViewController: UITableViewController
             }
         }
         
-        func count(tweet: Tweet) -> Int {
+        func count() -> Int {
             switch self {
-            case .Image:
-                return tweet.media.count
-            case .Hashtag:
-                return tweet.hashtags.count
-            case .URL:
-                return tweet.urls.count
-            case .User:
-                return tweet.userMentions.count
+            case .Image(let media):
+                return media.count
+            case .Hashtag(let hashtags):
+                return hashtags.count
+            case .URL(let urls):
+                return urls.count
+            case .User(let userMentions):
+                return userMentions.count
             }
         }
         
-        func text(tweet: Tweet, index: Int) -> String {
+        func text(index: Int) -> String {
             switch self {
-            case .Image:
-                return tweet.media.description
-            case .Hashtag:
-                return tweet.hashtags[index].keyword
-            case .URL:
-                return tweet.urls[index].keyword
-            case .User:
-                return tweet.userMentions[index].keyword
+            case .Image(let media):
+                return media[index].description
+            case .Hashtag(let hashtags):
+                return hashtags[index].keyword
+            case .URL(let urls):
+                return urls[index].keyword
+            case .User(let userMentions):
+                return userMentions[index].keyword
             }
         }
     }
@@ -80,7 +94,7 @@ class MentionsTableViewController: UITableViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.estimatedRowHeight = tableView.rowHeight
     }
 
     override func didReceiveMemoryWarning() {
@@ -95,7 +109,7 @@ class MentionsTableViewController: UITableViewController
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mentions[section].count(tweet!)
+        return mentions[section].count()
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -103,32 +117,46 @@ class MentionsTableViewController: UITableViewController
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Mention", forIndexPath: indexPath) as UITableViewCell
-
         // Configure the cell...
         let mention = mentions[indexPath.section]
-        if mention == Mention.Image {
-            if let imageURL = tweet?.media[indexPath.row].url {
-                if let imageData = NSData(contentsOfURL: imageURL) {
-                    cell.imageView?.image = UIImage(data: imageData)
-                }
-            }
-        } else {
-            cell.textLabel?.text = mention.text(tweet!, index: indexPath.row)
+        switch mention {
+        case .Image(let media):
+            let cell = tableView.dequeueReusableCellWithIdentifier("ImageMention", forIndexPath: indexPath) as MediaTableViewCell
+
+            cell.media = media[indexPath.row]
+            return cell
+            
+        default:
+            let cell = tableView.dequeueReusableCellWithIdentifier("TextMention", forIndexPath: indexPath) as UITableViewCell
+            cell.textLabel?.text = mention.text(indexPath.row)
+            return cell
         }
-        
-        return cell
     }
 
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let mention = mentions[indexPath.section]
+        switch mention {
+        case .Image(let media):
+            let aspectRatio = media[indexPath.row].aspectRatio
+            return tableView.contentSize.width / CGFloat(aspectRatio)
+        default:
+            return UITableViewAutomaticDimension
+        }
+    }
     
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        var destination = segue.destinationViewController as UIViewController
+        if let nc = destination as? UINavigationController {
+            destination = nc.visibleViewController
+        }
+        if let ivc = destination as? ImageViewController {
+            if let cell = sender as? MediaTableViewCell {
+                ivc.imageURL = cell.media?.url
+            }
+        }
     }
-    */
-
 }
