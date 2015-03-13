@@ -12,7 +12,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
 {
     var imageURL: NSURL? {
         didSet {
-            //image = nil
+            image = nil
             fetchImage()
         }
     }
@@ -33,13 +33,18 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         }
     }
     
-    @IBOutlet weak var imageView: UIImageView!
+    private var imageView = UIImageView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        scrollView.addSubview(imageView)
+    }
     
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.contentSize = imageView.frame.size
             scrollView.delegate = self
-            scrollView.minimumZoomScale = 0.5
+            scrollView.minimumZoomScale = 0.1
             scrollView.maximumZoomScale = 1.0
         }
     }
@@ -53,8 +58,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
             return imageView.image
         }
         set {
-            imageView?.image = newValue
-            imageView?.sizeToFit()
+            imageView.image = newValue
+            imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
         }
     }

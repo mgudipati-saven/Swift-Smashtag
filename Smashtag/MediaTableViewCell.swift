@@ -29,6 +29,7 @@ class MediaTableViewCell: UITableViewCell
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
                         if  imageData != nil {
                             self.mediaImageView?.image = UIImage(data: imageData!)
+                            self.setNeedsDisplay()
                         }
                     }
                 }
