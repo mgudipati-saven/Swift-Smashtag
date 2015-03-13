@@ -120,10 +120,15 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0UD-r8-s4D">
                                             <rect key="frame" x="8" y="8" width="584" height="95"/>
                                         </imageView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nle-RI-9sq">
+                                            <rect key="frame" x="290" y="46" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="0UD-r8-s4D" firstAttribute="top" secondItem="NGc-Z9-0Vv" secondAttribute="topMargin" id="54c-Nu-uJm"/>
+                                        <constraint firstAttribute="centerY" secondItem="nle-RI-9sq" secondAttribute="centerY" constant="-0.5" id="aFw-nH-AIM"/>
                                         <constraint firstItem="0UD-r8-s4D" firstAttribute="leading" secondItem="NGc-Z9-0Vv" secondAttribute="leadingMargin" id="aaG-CO-ySJ"/>
+                                        <constraint firstAttribute="centerX" secondItem="nle-RI-9sq" secondAttribute="centerX" id="gXF-JX-6j1"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="0UD-r8-s4D" secondAttribute="bottom" id="nMB-Zp-xtf"/>
                                         <constraint firstItem="0UD-r8-s4D" firstAttribute="trailing" secondItem="NGc-Z9-0Vv" secondAttribute="trailingMargin" id="v9n-PW-nXW"/>
                                     </constraints>
@@ -131,8 +136,24 @@
                                 <connections>
                                     <outlet property="imageView" destination="0UD-r8-s4D" id="anv-3Q-3ul"/>
                                     <outlet property="mediaImageView" destination="0UD-r8-s4D" id="m3A-Fo-o6g"/>
+                                    <outlet property="spinner" destination="nle-RI-9sq" id="moV-vN-gNu"/>
                                     <segue destination="toA-f7-Res" kind="show" id="Nfu-tC-9fW"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="URLMention" textLabel="NWz-Pd-BOC" style="IBUITableViewCellStyleDefault" id="fHu-RF-cBK">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fHu-RF-cBK" id="exg-eX-2CU">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NWz-Pd-BOC">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>

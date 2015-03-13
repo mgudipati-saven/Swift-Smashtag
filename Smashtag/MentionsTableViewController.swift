@@ -9,7 +9,7 @@
 import UIKit
 
 class MentionsTableViewController: UITableViewController
-{
+{    
     // data model
     var tweet: Tweet? {
         didSet {
@@ -126,6 +126,12 @@ class MentionsTableViewController: UITableViewController
             cell.media = media[indexPath.row]
             return cell
             
+        case .URL(let url):
+            let cell = tableView.dequeueReusableCellWithIdentifier("URLMention", forIndexPath: indexPath) as UITableViewCell
+            
+            cell.textLabel?.text = url[indexPath.row].keyword
+            return cell
+            
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("TextMention", forIndexPath: indexPath) as UITableViewCell
             cell.textLabel?.text = mention.text(indexPath.row)
@@ -145,7 +151,16 @@ class MentionsTableViewController: UITableViewController
     }
     
     // MARK: - Navigation
-
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let mention = mentions[indexPath.section]
+        switch mention {
+        case .URL(let url):
+            UIApplication.sharedApplication().openURL(NSURL(string: url[indexPath.row].keyword)!)
+        default:
+            return
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var destination = segue.destinationViewController as UIViewController
         if let nc = destination as? UINavigationController {
