@@ -13,10 +13,18 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     // data model
     var tweets = [[Tweet]]()
     
+    private let defaults = NSUserDefaults.standardUserDefaults()
+    
+    var searchHistory: [String] {
+        get { return defaults.objectForKey("TwitterSearch.History") as? [String] ?? [] }
+        set { defaults.setObject(newValue, forKey: "TwitterSearch.History") }
+    }
+    
     var searchText: String? = "#stanford" {
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText
+            searchHistory += [searchText!]
             tweets.removeAll()
             tableView.reloadData()
             refresh()
@@ -91,6 +99,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        println("\(tweets.count)")
         return tweets.count
     }
 
