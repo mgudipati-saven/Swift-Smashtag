@@ -97,6 +97,9 @@ class MentionsTableViewController: UITableViewController
         tableView.estimatedRowHeight = tableView.rowHeight
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

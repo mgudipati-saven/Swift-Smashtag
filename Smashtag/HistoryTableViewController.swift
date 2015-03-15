@@ -8,19 +8,20 @@
 
 import UIKit
 
-class HistoryTableViewController: UITableViewController {
-
-    private let defaults = NSUserDefaults.standardUserDefaults()
+class HistoryTableViewController: UITableViewController
+{
+   var items = [String]()
     
-    var searchHistory: [String] {
-        get { return defaults.objectForKey("TwitterSearch.History") as? [String] ?? [] }
-        set { defaults.setObject(newValue, forKey: "TwitterSearch.History") }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        items = SearchHistory.distinct(SearchHistory.items.reverse())
+        tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -32,14 +33,14 @@ class HistoryTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchHistory.count
+        return items.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("History", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = searchHistory[indexPath.row]
+        cell.textLabel?.text = items[indexPath.row]
         return cell
     }
 
