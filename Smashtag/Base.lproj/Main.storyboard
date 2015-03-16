@@ -5,7 +5,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Tweet Table View Controller-->
+        <!--Tweets-->
         <scene sceneID="t35-HN-Y3M">
             <objects>
                 <tableViewController id="4YL-x9-79z" customClass="TweetTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
@@ -70,7 +70,7 @@
                             <outlet property="delegate" destination="4YL-x9-79z" id="TLP-9G-8aQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="73O-fg-uTL"/>
+                    <navigationItem key="navigationItem" title="Tweets" id="73O-fg-uTL"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="aVk-I9-4L5">
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
@@ -83,9 +83,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GSf-v6-rNM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1586" y="313"/>
+            <point key="canvasLocation" x="1542" y="313"/>
         </scene>
-        <!--Mentions Table View Controller-->
+        <!--Mentions-->
         <scene sceneID="MsZ-Os-a0T">
             <objects>
                 <tableViewController id="0mV-9G-uyv" customClass="MentionsTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
@@ -161,12 +161,12 @@
                             <outlet property="delegate" destination="0mV-9G-uyv" id="oAN-GB-mY3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="reX-MP-28p"/>
+                    <navigationItem key="navigationItem" title="Mentions" id="reX-MP-28p"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTp-ks-1Cq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ycO-Eh-che" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2897" y="312"/>
+            <point key="canvasLocation" x="2961" y="312"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="SyL-Aq-LBH">
@@ -199,9 +199,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r88-E2-9Ds" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4593" y="303"/>
+            <point key="canvasLocation" x="4365" y="312"/>
         </scene>
-        <!--History Table View Controller-->
+        <!--Recent Searches-->
         <scene sceneID="Lw4-Er-bVQ">
             <objects>
                 <tableViewController id="pHM-f3-KIz" customClass="HistoryTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
@@ -223,6 +223,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="4YL-x9-79z" kind="show" id="CZe-7X-icf"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -230,16 +233,16 @@
                             <outlet property="delegate" destination="pHM-f3-KIz" id="wQe-hQ-W61"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3x0-MO-5gv"/>
+                    <navigationItem key="navigationItem" title="Recent Searches" id="3x0-MO-5gv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cae-n6-pWH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1542" y="-489"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Tweets-->
         <scene sceneID="Vus-jb-Jbv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TQX-mI-ugJ" sceneMemberID="viewController">
+                <navigationController title="Tweets" automaticallyAdjustsScrollViewInsets="NO" id="TQX-mI-ugJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="search" id="9n7-bj-dLe" userLabel="Search"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WgU-0o-BAI">
@@ -255,10 +258,10 @@
             </objects>
             <point key="canvasLocation" x="782" y="313"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Mentions-->
         <scene sceneID="S4l-hX-7Gm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xTu-aJ-4bg" sceneMemberID="viewController">
+                <navigationController title="Mentions" automaticallyAdjustsScrollViewInsets="NO" id="xTu-aJ-4bg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lp2-1S-8da">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -271,7 +274,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tee-5h-Ywt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2248" y="313"/>
+            <point key="canvasLocation" x="2260" y="313"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PPe-N8-f5z">
@@ -289,7 +292,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yB0-wP-jGS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3725" y="303"/>
+            <point key="canvasLocation" x="3633" y="313"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="j78-7B-BAN">
@@ -330,4 +333,7 @@
             <point key="canvasLocation" x="782" y="-489"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="CZe-7X-icf"/>
+    </inferredMetricsTieBreakers>
 </document>

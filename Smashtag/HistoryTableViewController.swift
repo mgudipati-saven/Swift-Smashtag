@@ -44,14 +44,17 @@ class HistoryTableViewController: UITableViewController
         return cell
     }
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        var destination = segue.destinationViewController as UIViewController
+        if let nc = destination as? UINavigationController {
+            destination = nc.visibleViewController
+        }
+        if let tvc = destination as? TweetTableViewController {
+            if let cell = sender as? UITableViewCell {
+                tvc.searchText = cell.textLabel?.text
+            }
+        }
     }
-    */
-
 }
