@@ -12,9 +12,11 @@ private let defaults = NSUserDefaults.standardUserDefaults()
 
 public class SearchHistory
 {
-    class var items: [String] {
-        get { return defaults.objectForKey(SearchKey.History) as? [String] ?? [] }
-        set { defaults.setObject(newValue.map { $0.lowercaseString }, forKey: SearchKey.History) }
+    class var terms: [String] {
+        get {return defaults.objectForKey(SearchTerms.History) as? [String] ?? [] }
+        set {
+            defaults.setObject(distinct(newValue.map { $0.lowercaseString }), forKey: SearchTerms.History)
+        }
     }
     
     class func distinct<T: Equatable>(source: [T]) -> [T] {
@@ -27,7 +29,7 @@ public class SearchHistory
         return unique
     }
     
-    struct SearchKey {
+    struct SearchTerms {
         static let History = "TwitterSearch.History"
     }
 }

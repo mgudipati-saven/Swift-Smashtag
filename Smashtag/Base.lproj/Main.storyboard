@@ -44,20 +44,30 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="FmT-Fo-FYF">
+                                            <rect key="frame" x="8" y="61" width="45" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="3jU-Nr-x3g" firstAttribute="trailing" secondItem="3YW-U2-Kjm" secondAttribute="trailingMargin" id="BU5-8H-mAQ"/>
                                         <constraint firstItem="LB9-1I-dbL" firstAttribute="leading" secondItem="POX-3B-bvA" secondAttribute="trailing" constant="8" id="HqD-9w-1d3"/>
                                         <constraint firstItem="3jU-Nr-x3g" firstAttribute="top" secondItem="LB9-1I-dbL" secondAttribute="bottom" constant="9" id="J5M-Zj-v2i"/>
                                         <constraint firstItem="POX-3B-bvA" firstAttribute="top" secondItem="3YW-U2-Kjm" secondAttribute="topMargin" id="KZm-gd-aEP"/>
+                                        <constraint firstItem="FmT-Fo-FYF" firstAttribute="leading" secondItem="3YW-U2-Kjm" secondAttribute="leadingMargin" id="Rf4-eH-JXx"/>
                                         <constraint firstItem="LB9-1I-dbL" firstAttribute="trailing" secondItem="3YW-U2-Kjm" secondAttribute="trailingMargin" id="UAD-Sh-vwU"/>
                                         <constraint firstItem="POX-3B-bvA" firstAttribute="leading" secondItem="3YW-U2-Kjm" secondAttribute="leadingMargin" id="WrX-xP-dRy"/>
                                         <constraint firstItem="LB9-1I-dbL" firstAttribute="leading" secondItem="3jU-Nr-x3g" secondAttribute="leading" id="dYn-8q-OMF"/>
+                                        <constraint firstItem="FmT-Fo-FYF" firstAttribute="top" secondItem="POX-3B-bvA" secondAttribute="bottom" constant="8" symbolic="YES" id="gAj-Ci-l41"/>
+                                        <constraint firstItem="3jU-Nr-x3g" firstAttribute="leading" secondItem="FmT-Fo-FYF" secondAttribute="trailing" constant="8" symbolic="YES" id="vIn-yc-rHF"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="3jU-Nr-x3g" secondAttribute="bottom" constant="-1" id="vti-MY-EhB"/>
                                         <constraint firstItem="LB9-1I-dbL" firstAttribute="top" secondItem="3YW-U2-Kjm" secondAttribute="topMargin" constant="1" id="zP1-5A-Q5Y"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="tweetCreatedLabel" destination="FmT-Fo-FYF" id="4EW-F1-vb4"/>
                                     <outlet property="tweetProfileImageView" destination="POX-3B-bvA" id="o0z-nx-m8p"/>
                                     <outlet property="tweetScreenNameLabel" destination="LB9-1I-dbL" id="WM6-Qe-Rkz"/>
                                     <outlet property="tweetTextLabel" destination="3jU-Nr-x3g" id="SdT-VX-LDD"/>
@@ -149,7 +159,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NWz-Pd-BOC">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -218,7 +228,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hgD-nh-10Z">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

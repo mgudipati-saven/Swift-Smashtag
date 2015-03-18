@@ -10,18 +10,21 @@ import UIKit
 
 class HistoryTableViewController: UITableViewController
 {
-   var items = [String]()
+    var searchTerms: [String] {
+        get { return SearchHistory.terms }
+        set { SearchHistory.terms = newValue }
+    }
+    
+    var items = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        items = SearchHistory.distinct(SearchHistory.items.reverse())
         tableView.reloadData()
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -33,17 +36,24 @@ class HistoryTableViewController: UITableViewController
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return searchTerms.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("History", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
-        cell.textLabel?.text = items[indexPath.row]
+        cell.textLabel?.text = searchTerms[indexPath.row]
         return cell
     }
-
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            searchTerms.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+    
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

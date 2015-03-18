@@ -17,7 +17,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText
-            SearchHistory.items += [searchText!]
+            SearchHistory.terms.insert(searchText!, atIndex: 0)
             tweets.removeAll()
             tableView.reloadData()
             refresh()

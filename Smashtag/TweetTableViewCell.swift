@@ -20,12 +20,14 @@ class TweetTableViewCell: UITableViewCell
     @IBOutlet weak var tweetProfileImageView: UIImageView!
     @IBOutlet weak var tweetScreenNameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var tweetCreatedLabel: UILabel!
     
     func updateUI() {
         // reset any existing tweet information
         tweetTextLabel?.attributedText = nil
         tweetScreenNameLabel?.text = nil
         tweetProfileImageView?.image = nil
+        tweetCreatedLabel?.text = nil
         
         // load new information from our tweet (if any)
         if let tweet = self.tweet {
@@ -54,6 +56,10 @@ class TweetTableViewCell: UITableViewCell
             }
             
             tweetScreenNameLabel?.text = "\(tweet.user)"
+            let timeStamp = NSDateFormatter.localizedStringFromDate(tweet.created,
+                                                                    dateStyle: NSDateFormatterStyle.NoStyle,
+                                                                    timeStyle: NSDateFormatterStyle.ShortStyle)
+            tweetCreatedLabel?.text = "\(timeStamp)"
             
             if let profileImageURL = tweet.user.profileImageURL {
                 let qos = Int(QOS_CLASS_USER_INITIATED.value)
