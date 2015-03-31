@@ -10,41 +10,25 @@ import UIKit
 
 class MediaTableViewCell: UITableViewCell
 {
-    var media: MediaItem? {
-        didSet {
-            mediaImage = nil
-            updateUI()
-        }
-    }
-    
-    private var mediaImage: UIImage? {
-        get {
-            return mediaImageView.image
-        }
-        set {
-            mediaImageView.image = newValue
-            mediaImageView.sizeToFit()
-            spinner.stopAnimating()
-        }
-    }
-    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
-    @IBOutlet weak var mediaImageView: UIImageView!
+    @IBOutlet weak var tweetImage: UIImageView!
+
+    var imageUrl: NSURL? { didSet { updateUI() } }
     
     func updateUI() {
-        if let media = self.media {
-            if let imageURL = media.url {
-                spinner.startAnimating()
-                let qos = Int(QOS_CLASS_USER_INITIATED.value)
-                dispatch_async(dispatch_get_global_queue(qos, 0)) { () -> Void in
-                    let imageData = NSData(contentsOfURL: imageURL)
-                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                        if  imageData != nil {
-                            self.mediaImage = UIImage(data: imageData!)
+        tweetImage?.image = nil
+        if let url = imageUrl {
+            spinner?.startAnimating()
+            dispatch_async(dispatch_get_global_queue(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 ? Int(QOS_CLASS_USER_INITIATED.value) : DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                let imageData = NSData(contentsOfURL: url)
+                dispatch_async(dispatch_get_main_queue()) {
+                    if url == self.imageUrl {
+                        if imageData != nil {
+                            self.tweetImage?.image = UIImage(data: imageData!)
                         } else {
-                            self.mediaImage = nil
+                            self.tweetImage?.image = nil
                         }
+                        self.spinner?.stopAnimating()
                     }
                 }
             }

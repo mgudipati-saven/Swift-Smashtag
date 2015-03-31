@@ -19,6 +19,7 @@
 		330121911AABED6C00F7F396 /* TweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330121901AABED6C00F7F396 /* TweetTableViewController.swift */; };
 		330CA96F1AB473C000006D2F /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330CA96E1AB473C000006D2F /* HistoryTableViewController.swift */; };
 		330CB2621AAC1B6D002DA95B /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330CB2611AAC1B6D002DA95B /* TweetTableViewCell.swift */; };
+		336081401AC9B4DD00391560 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3360813F1AC9B4DD00391560 /* WebViewController.swift */; };
 		339B8AC01AAEAB2B00AAC7F3 /* MentionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339B8ABF1AAEAB2B00AAC7F3 /* MentionsTableViewController.swift */; };
 		33A3F0B71AB1729900AB6CF7 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A3F0B61AB1729900AB6CF7 /* MediaTableViewCell.swift */; };
 		33BD75C71AB1437900719125 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BD75C61AB1437900719125 /* ImageViewController.swift */; };
@@ -52,6 +53,7 @@
 		330121901AABED6C00F7F396 /* TweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewController.swift; sourceTree = "<group>"; };
 		330CA96E1AB473C000006D2F /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		330CB2611AAC1B6D002DA95B /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
+		3360813F1AC9B4DD00391560 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		339B8ABF1AAEAB2B00AAC7F3 /* MentionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsTableViewController.swift; sourceTree = "<group>"; };
 		33A3F0B61AB1729900AB6CF7 /* MediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
 		33BD75C61AB1437900719125 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -97,15 +99,16 @@
 		330121641AABEB8D00F7F396 /* Smashtag */ = {
 			isa = PBXGroup;
 			children = (
-				330121901AABED6C00F7F396 /* TweetTableViewController.swift */,
-				330121871AABEC3400F7F396 /* Twitter */,
 				3301216B1AABEB8D00F7F396 /* Main.storyboard */,
+				330121901AABED6C00F7F396 /* TweetTableViewController.swift */,
 				330CA96E1AB473C000006D2F /* HistoryTableViewController.swift */,
+				3360813F1AC9B4DD00391560 /* WebViewController.swift */,
 				33D59F541AB5597D00AD3477 /* SearchHistory.swift */,
 				33A3F0B61AB1729900AB6CF7 /* MediaTableViewCell.swift */,
 				33BD75C61AB1437900719125 /* ImageViewController.swift */,
 				339B8ABF1AAEAB2B00AAC7F3 /* MentionsTableViewController.swift */,
 				330CB2611AAC1B6D002DA95B /* TweetTableViewCell.swift */,
+				330121871AABEC3400F7F396 /* Twitter */,
 				330121651AABEB8D00F7F396 /* Supporting Files */,
 			);
 			path = Smashtag;
@@ -261,6 +264,7 @@
 				33A3F0B71AB1729900AB6CF7 /* MediaTableViewCell.swift in Sources */,
 				330CA96F1AB473C000006D2F /* HistoryTableViewController.swift in Sources */,
 				3301218E1AABEC3400F7F396 /* TwitterRequest.swift in Sources */,
+				336081401AC9B4DD00391560 /* WebViewController.swift in Sources */,
 				330CB2621AAC1B6D002DA95B /* TweetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

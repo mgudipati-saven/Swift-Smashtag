@@ -13,106 +13,73 @@ class MentionsTableViewController: UITableViewController
     // data model
     var tweet: Tweet? {
         didSet {
-            //println("\(tweet)")
-
+            title = tweet?.user.screenName
             if let media = tweet?.media {
                 if media.count > 0 {
-                    mentions.append(Mention.Image(media))
+                    mentions.append(Mentions(title: "Images",
+                        data: media.map { MentionItem.Image($0.url, $0.aspectRatio) }))
                 }
             }
-            
-            if let hashtags = tweet?.hashtags {
-                if hashtags.count > 0 {
-                    mentions.append(Mention.Hashtag(hashtags))
-                }
-            }
-
             if let urls = tweet?.urls {
                 if urls.count > 0 {
-                    mentions.append(Mention.URL(urls))
+                    mentions.append(Mentions(title: "URLs",
+                        data: urls.map { MentionItem.Keyword($0.keyword) }))
                 }
             }
-            
-            if let userMentions = tweet?.userMentions {
-                if userMentions.count > 0 {
-                    mentions.append(Mention.User(userMentions))
+            if let hashtags = tweet?.hashtags {
+                if hashtags.count > 0 {
+                    mentions.append(Mentions(title: "Hashtags",
+                        data: hashtags.map { MentionItem.Keyword($0.keyword) }))
                 }
             }
-
-            tableView.reloadData()
+            if let users = tweet?.userMentions {
+                var userItems = [MentionItem.Keyword("@" + tweet!.user.screenName)]
+                if users.count > 0 {
+                    userItems += users.map { MentionItem.Keyword($0.keyword) }
+                }
+                mentions.append(Mentions(title: "Users", data: userItems))
+            }
         }
     }
     
-    private enum Mention {
-        case Image([MediaItem])
-        case Hashtag([Tweet.IndexedKeyword])
-        case URL([Tweet.IndexedKeyword])
-        case User([Tweet.IndexedKeyword])
+    var mentions: [Mentions] = []
+    
+    struct Mentions: Printable
+    {
+        var title: String
+        var data: [MentionItem]
         
-        var title: String {
+        var description: String { return "\(title): \(data)" }
+    }
+    
+    enum MentionItem: Printable
+    {
+        case Keyword(String)
+        case Image(NSURL, Double)
+        
+        var description: String {
             switch self {
-            case .Image:
-                return "Images"
-            case .Hashtag:
-                return "Hashtags"
-            case .URL:
-                return "URLs"
-            case .User:
-                return "Users"
+            case .Keyword(let keyword): return keyword
+            case .Image(let url, _): return url.path!
             }
         }
-        
-        func count() -> Int {
-            switch self {
-            case .Image(let media):
-                return media.count
-            case .Hashtag(let hashtags):
-                return hashtags.count
-            case .URL(let urls):
-                return urls.count
-            case .User(let userMentions):
-                return userMentions.count
-            }
-        }
-        
-        func text(index: Int) -> String {
-            switch self {
-            case .Image(let media):
-                return media[index].description
-            case .Hashtag(let hashtags):
-                return hashtags[index].keyword
-            case .URL(let urls):
-                return urls[index].keyword
-            case .User(let userMentions):
-                return userMentions[index].keyword
-            }
-        }
-    }
-
-    // mentions from the tweet
-    private var mentions = [Mention]()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.estimatedRowHeight = tableView.rowHeight
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
+    private struct Storyboard {
+        static let KeywordCellReuseIdentifier = "Keyword Cell"
+        static let ImageCellReuseIdentifier = "Image Cell"
+        static let KeywordSegueIdentifier = "From Keyword"
+        static let ImageSegueIdentifier = "Show Image"
+        static let WebSegueIdentifier = "Show URL"
+    }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return mentions.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mentions[section].count()
+        return mentions[section].data.count
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -120,62 +87,73 @@ class MentionsTableViewController: UITableViewController
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // Configure the cell...
-        let mention = mentions[indexPath.section]
+        let mention = mentions[indexPath.section].data[indexPath.row]
+        
         switch mention {
-        case .Image(let media):
-            let cell = tableView.dequeueReusableCellWithIdentifier("ImageMention", forIndexPath: indexPath) as MediaTableViewCell
+        case .Keyword(let keyword):
+            let cell = tableView.dequeueReusableCellWithIdentifier(
+                Storyboard.KeywordCellReuseIdentifier,
+                forIndexPath: indexPath) as UITableViewCell
+            cell.textLabel?.text = keyword
+            return cell
 
-            cell.media = media[indexPath.row]
-            return cell
-            
-        case .URL(let url):
-            let cell = tableView.dequeueReusableCellWithIdentifier("URLMention", forIndexPath: indexPath) as UITableViewCell
-            
-            cell.textLabel?.text = url[indexPath.row].keyword
-            return cell
-            
-        default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TextMention", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = mention.text(indexPath.row)
+        case .Image(let url, let ratio):
+            let cell = tableView.dequeueReusableCellWithIdentifier(
+                Storyboard.ImageCellReuseIdentifier,
+                forIndexPath: indexPath) as MediaTableViewCell
+            cell.imageUrl = url
             return cell
         }
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let mention = mentions[indexPath.section]
+        let mention = mentions[indexPath.section].data[indexPath.row]
         switch mention {
-        case .Image(let media):
-            let aspectRatio = media[indexPath.row].aspectRatio
-            return tableView.contentSize.width / CGFloat(aspectRatio)
+        case .Image(_, let ratio):
+            return tableView.bounds.size.width / CGFloat(ratio)
         default:
             return UITableViewAutomaticDimension
         }
     }
     
-    // MARK: - Navigation
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let mention = mentions[indexPath.section]
-        switch mention {
-        case .URL(let url):
-            UIApplication.sharedApplication().openURL(NSURL(string: url[indexPath.row].keyword)!)
-        default:
-            return
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        if identifier == Storyboard.KeywordSegueIdentifier {
+            if let cell = sender as? UITableViewCell {
+                if let url = cell.textLabel?.text {
+                    if url.hasPrefix("http") {
+                        //UIApplication.sharedApplication().openURL(NSURL(string: url)!)
+                        performSegueWithIdentifier(Storyboard.WebSegueIdentifier, sender: sender)
+                        return false
+                    }
+                }
+            }
         }
+        return true
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var destination = segue.destinationViewController as UIViewController
-        if let nc = destination as? UINavigationController {
-            destination = nc.visibleViewController
-        }
-        if let ivc = destination as? ImageViewController {
-            if let cell = sender as? MediaTableViewCell {
-                ivc.imageURL = cell.media?.url
-            }
-        } else if let tvc = destination as? TweetTableViewController {
-            if let cell = sender as? UITableViewCell {
-                tvc.searchText = cell.textLabel?.text
+        if let identifier = segue.identifier {
+            if identifier == Storyboard.KeywordSegueIdentifier {
+                if let ttvc = segue.destinationViewController as? TweetTableViewController {
+                    if let cell = sender as? UITableViewCell {
+                        ttvc.searchText = cell.textLabel?.text
+                    }
+                }
+            } else if identifier == Storyboard.ImageSegueIdentifier {
+                if let ivc = segue.destinationViewController as? ImageViewController {
+                    if let cell = sender as? MediaTableViewCell {
+                        ivc.imageURL = cell.imageUrl
+                        ivc.title = title
+                    }
+                }
+            } else if identifier == Storyboard.WebSegueIdentifier {
+                if let wvc = segue.destinationViewController as? WebViewController {
+                    if let cell = sender as? UITableViewCell {
+                        if let url = cell.textLabel?.text {
+                            wvc.url = NSURL(string: url)
+                        }
+                    }
+                }
             }
         }
     }
